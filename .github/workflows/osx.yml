@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     
@@ -19,6 +19,21 @@ jobs:
       run: |
         mkdir -p osx/build/Release
         echo macos > osx/build/Release/nzbget-22.0-bin-macos.zip
+
+    - name: Rename build artifacts
+      if: github.ref_name != 'main'
+      run: |
+        cd osx/build/Release
+        VERSION=$(ls | grep bin-macos.zip | cut -d - -f 2)
+        NEW_VERSION="$VERSION-testing-$(date '+%Y%m%d')"
+        if [ "$GITHUB_REF_NAME" != "develop" ]; then
+          NEW_VERSION="$NEW_VERSION-${GITHUB_REF_NAME/\//-}"
+        fi
+        for FILE in *.zip; do
+          [ -f $FILE ] || continue
+          NEW_FILE=${FILE/$VERSION/$NEW_VERSION}
+          mv $FILE $NEW_FILE          
+        done
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3

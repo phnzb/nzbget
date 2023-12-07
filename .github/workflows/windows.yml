@@ -21,6 +21,7 @@ jobs:
         "windows" | Out-File $Output/nzbget-22.0-bin-windows-setup.exe
 
     - name: Rename build artifacts
+      if: github.ref_name != 'main'
       run: |
         $Output="c:\nzbget\build\output"
         ForEach ($File In Get-ChildItem -Path $Output -Filter "*.exe") {
