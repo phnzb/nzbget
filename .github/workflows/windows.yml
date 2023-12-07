@@ -25,14 +25,14 @@ jobs:
         $Output="c:\nzbget\build\output"
         ForEach ($File In Get-ChildItem -Path $Output -Filter "*.exe") {
             $Version = $File.Name.split("-")[1]
-            If ($Env:GITHUB_REF_NAME -ne "main") {
+            If ($env:GITHUB_REF_NAME -ne "main") {
                 $Date=Get-Date -Format "yyyymmdd"
                 $NewVersion = "$Version-testing-$Date"
-                if ($Env:GITHUB_REF_NAME -ne "develop") {
-                    $Suffix = $Env:GITHUB_REF_NAME.Replace("/","-")
+                if ($env:GITHUB_REF_NAME -ne "develop") {
+                    $Suffix = $env:GITHUB_REF_NAME.Replace("/","-")
                     $NewVersion = "$NewVersion-$Suffix"
                 }
-                Rename-Item -Path "$Output\$File.Name" -NewName $File.Name.Replace($Version, $NewVersion)
+                Rename-Item -Path "$Output\$($File.Name)" -NewName $File.Name.Replace($Version, $NewVersion)
             }
         }
 
