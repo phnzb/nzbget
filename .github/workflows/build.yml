@@ -83,11 +83,22 @@ jobs:
   make-testing-release:
     runs-on: ubuntu-latest
     needs: [generate-signatures]
+    permissions:
+      contents: write
     if: github.ref_name == 'develop'
     steps:
 
     - name: Download build artifacts
       uses: actions/download-artifact@v3
+
+    - name: Create/Update testing tag
+      uses: julbme/gh-action-manage-tag@v1
+      with:
+        name: testing
+        state: present
+        from: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
     
     - name: Make release
       uses: ncipollo/release-action@v1
