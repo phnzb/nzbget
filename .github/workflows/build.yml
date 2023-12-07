@@ -97,11 +97,11 @@ jobs:
         cp $(find nzbget-installers/ -name *windows-setup.exe) nzbget-installers/nzbget-latest-testing-bin-windows-setup
 
     - name: Delete tag
-      uses: dev-drprasad/delete-tag-and-release@v1.0
-      with:
-        tag_name: testing
-        github_token: ${{ github.token }}
-        delete_release: false
+      run:
+        git tag -d testing
+        git tag testing
+        git push origin :testing
+        git push origin testing
     
     - name: Make release
       uses: ncipollo/release-action@v1
