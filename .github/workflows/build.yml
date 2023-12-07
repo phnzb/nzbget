@@ -100,7 +100,7 @@ jobs:
         cp $(find nzbget-installers/ -name *windows-setup.exe) nzbget-installers/nzbget-latest-testing-bin-windows-setup
 
     - name: Delete tag
-      run:
+      run: |
         git tag -d testing
         git tag testing
         git push origin :testing
