@@ -85,6 +85,9 @@ jobs:
     needs: [generate-signatures]
     if: github.ref_name == 'develop'
     steps:
+
+    - run: |
+        ls -l
     
     - name: Make release
       uses: ncipollo/release-action@v1
