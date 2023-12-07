@@ -106,3 +106,4 @@ jobs:
         tag: "testing"
         makeLatest: false
         prerelease: true
+        draft: false
