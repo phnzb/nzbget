@@ -32,7 +32,7 @@ jobs:
                     $Suffix = $Env:GITHUB_REF_NAME.Replace("/","-")
                     $NewVersion = "$NewVersion-$Suffix"
                 }
-                Rename-Item -Path "$Output\$File" -NewName $File.Name.Replace($Version, $NewVersion)
+                Rename-Item -Path "$Output\$File.Name" -NewName $File.Name.Replace($Version, $NewVersion)
             }
         }
 
