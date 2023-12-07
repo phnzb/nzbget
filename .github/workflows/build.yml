@@ -112,5 +112,5 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         replacesArtifacts: true
-        omitDraftDuringUpdate: true
+        draft: false
         omitPrereleaseDuringUpdate: true
