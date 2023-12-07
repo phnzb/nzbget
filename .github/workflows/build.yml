@@ -92,10 +92,11 @@ jobs:
       uses: actions/download-artifact@v3
 
     - name: Create/Update testing tag
-      uses: mathieudutour/github-tag-action@v6.0
+      uses: mathieudutour/github-tag-action@v6.1
       with:
         github_token: ${{ github.token }}
         custom_tag: testing
+        tag_prefix: ""
     
     - name: Make release
       uses: ncipollo/release-action@v1
