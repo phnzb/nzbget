@@ -110,3 +110,4 @@ jobs:
         generateReleaseNotes: true
         tag: "testing"
         makeLatest: false
+        draft: false
