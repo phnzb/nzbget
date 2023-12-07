@@ -101,9 +101,8 @@ jobs:
 
     - name: Delete tag
       run: |
-        git tag -d testing
         git tag testing
-        git push origin :testing
+        git push origin :testing || true
         git push origin testing
     
     - name: Make release
