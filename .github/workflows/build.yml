@@ -72,13 +72,13 @@ jobs:
         path: builds/*
         retention-days: 5
 
-    - name: Delete unneded platform-specific artifacts
-      uses: geekyeggo/delete-artifact@v2
-      with:
-        name: |
-          nzbget-windows-installers
-          nzbget-linux-installers
-          nzbget-osx-installers
+    # - name: Delete unneded platform-specific artifacts
+    #   uses: geekyeggo/delete-artifact@v2
+    #   with:
+    #     name: |
+    #       nzbget-windows-installers
+    #       nzbget-linux-installers
+    #       nzbget-osx-installers
   
   make-testing-release:
     runs-on: ubuntu-latest
