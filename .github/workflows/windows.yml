@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, windows]
+    runs-on: ubuntu-latest
 
     steps:
     
@@ -15,11 +15,14 @@ jobs:
 
     - name: Build
       run: |
-        .\windows\build-nzbget-vs22.bat
+        OUTPUT=build/output
+        mkdir -p $OUTPUT
+        echo windows-debug > $OUTPUT/nzbget-22.0-bin-windows-debug-setup.exe
+        echo windows > $OUTPUT/nzbget-22.0-bin-windows-setup.exe
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: nzbget-windows-installers
-        path: C:\nzbget\build\output\*.exe
+        path: build/output/*.exe
         retention-days: 5

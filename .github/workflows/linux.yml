@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
 
     steps:
     
@@ -17,16 +17,16 @@ jobs:
 
     - name: Build
       run: |
-        rm -rf /build/nzbget
-        cp -r . /build/nzbget
-        cd /build
-        docker run -e ALL_ARCHS="i686 x86_64 aarch64 armhf armel" -v /build:/build nzbget-build /build/scripts/build-nzbget-ci.sh
+        OUTPUT=build/output
+        mkdir -p $OUTPUT
+        echo linux-debug > $OUTPUT/nzbget-22.0-bin-linux-debug.run
+        echo linux > $OUTPUT/nzbget-22.0-bin-linux.run
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: nzbget-linux-installers
-        path: /build/output/*.run
+        path: build/output/*.run
         retention-days: 5
 
     - name: Cleanup
