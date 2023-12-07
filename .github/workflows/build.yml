@@ -99,21 +99,19 @@ jobs:
         cp $(find nzbget-installers/ -name *linux.run) nzbget-installers/nzbget-latest-testing-bin-linux.run
         cp $(find nzbget-installers/ -name *windows-setup.exe) nzbget-installers/nzbget-latest-testing-bin-windows-setup
 
-    - name: Delete tag
-      run: |
-        git tag testing
-        git push origin :testing || true
-        git push origin testing
+    - name: Delete tag and release
+      uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      with:
+        delete_release: true
+        tag_name: testing
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
     
     - name: Make release
       uses: ncipollo/release-action@v1
       with:
         artifacts: "nzbget-installers/*"
         generateReleaseNotes: true
-        tag: "testing"
+        tag: testing        
         allowUpdates: true
-        removeArtifacts: true
-        replacesArtifacts: true
-        draft: false
-        omitPrereleaseDuringUpdate: true
-        omitBodyDuringUpdate: false
+        prerelease: true
