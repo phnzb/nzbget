@@ -17,6 +17,7 @@ jobs:
 
     - name: Build
       run: |
+        mkdir -p osx/build/Release
         echo macos > osx/build/Release/nzbget-22.0-bin-macos.zip
 
     - name: Upload build artifacts
