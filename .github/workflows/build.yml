@@ -109,8 +109,8 @@ jobs:
         artifacts: "nzbget-installers/*"
         generateReleaseNotes: true
         tag: "testing"
-        makeLatest: false
-        draft: false
         allowUpdates: true
         removeArtifacts: true
         replacesArtifacts: true
+        omitDraftDuringUpdate: true
+        omitPrereleaseDuringUpdate: true
