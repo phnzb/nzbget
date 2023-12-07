@@ -27,10 +27,11 @@ jobs:
       run: |
         cd build/output
         VERSION=$(ls | grep bin-linux.run | cut -d - -f 2)
+        NEW_VERSION="$VERSION-testing-$(date '+%Y%m%d')"
         for FILE in *.run; do
-          if [ -f $FILE ] || continue
-          NEW_FILE=${FILE/$VERSION/$VERSION-testing}
-          mv $FILE $NEW_FILE
+          [ -f $FILE ] || continue
+          NEW_FILE=${FILE/$VERSION/$NEW_VERSION}
+          mv $FILE $NEW_FILE          
         done
 
     - name: Upload build artifacts
