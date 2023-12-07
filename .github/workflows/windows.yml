@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     
@@ -15,14 +15,30 @@ jobs:
 
     - name: Build
       run: |
-        OUTPUT=build/output
-        mkdir -p $OUTPUT
-        echo windows-debug > $OUTPUT/nzbget-22.0-bin-windows-debug-setup.exe
-        echo windows > $OUTPUT/nzbget-22.0-bin-windows-setup.exe
+        $Output="c:\nzbget\build\output"
+        New-Item -Path $Output -ItemType Directory -Force | Out-Null
+        "windows-debug" | Out-File $Output/nzbget-22.0-bin-windows-debug-setup.exe
+        "windows" | Out-File $Output/nzbget-22.0-bin-windows-setup.exe
+
+    - name: Rename build artifacts
+      run: |
+        $Output="c:\nzbget\build\output"
+        ForEach ($File In Get-ChildItem -Path $Output -Filter "*.exe") {
+            $Version = $File.Name.split("-")[1]
+            If ($env:GITHUB_REF_NAME -ne "main") {
+                $Date=Get-Date -Format "yyyymmdd"
+                $NewVersion = "$Version-testing-$Date"
+                if ($env:GITHUB_REF_NAME -ne "develop") {
+                    $Suffix = $env:GITHUB_REF_NAME.Replace("/","-")
+                    $NewVersion = "$NewVersion-$Suffix"
+                }
+                Rename-Item -Path "$Output\$($File.Name)" -NewName $File.Name.Replace($Version, $NewVersion)
+            }
+        }
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: nzbget-windows-installers
-        path: build/output/*.exe
+        path: C:\nzbget\build\output\*.exe
         retention-days: 5
