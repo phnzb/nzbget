@@ -101,7 +101,7 @@ jobs:
       with:
         tag_name: testing
         github_token: ${{ github.token }}
-        delete_release: false
+        delete_release: true
     
     - name: Make release
       uses: ncipollo/release-action@v1
@@ -110,6 +110,3 @@ jobs:
         generateReleaseNotes: true
         tag: "testing"
         makeLatest: false
-        allowUpdates: true
-        prerelease: true
-        draft: false
