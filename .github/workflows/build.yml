@@ -92,13 +92,10 @@ jobs:
       uses: actions/download-artifact@v3
 
     - name: Create/Update testing tag
-      uses: julbme/gh-action-manage-tag@v1
+      uses: mathieudutour/github-tag-action@v6.0
       with:
-        name: testing
-        state: present
-        from: ${{ github.ref }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+        github_token: ${{ github.token }}
+        custom_tag: testing
     
     - name: Make release
       uses: ncipollo/release-action@v1
