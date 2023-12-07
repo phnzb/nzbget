@@ -111,3 +111,5 @@ jobs:
         tag: "testing"
         makeLatest: false
         allowUpdates: true
+        prerelease: true
+        draft: false
