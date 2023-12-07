@@ -109,6 +109,6 @@ jobs:
       with:
         artifacts: "nzbget-installers/*"
         generateReleaseNotes: true
-        tag: testing        
+        tag: testing
         allowUpdates: true
         prerelease: true
