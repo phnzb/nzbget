@@ -116,3 +116,4 @@ jobs:
         replacesArtifacts: true
         draft: false
         omitPrereleaseDuringUpdate: true
+        omitBodyDuringUpdate: false
